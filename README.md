@@ -7,3 +7,8 @@ Unverified
 - [ ] 2015
 - [ ] 2016
 - [ ] 2017
+
+2017 needs python 3 to run, everything else runs with python 2.
+
+I forgot to switch to python 2 when I did 2017 and I can't be bothered
+changing it, if you do change it submit a PR and you're a legend.
