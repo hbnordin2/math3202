@@ -7,7 +7,8 @@ Unverified
 - [ ] 2014
 - [ ] 2015
 - [ ] 2016
-- [ ] 2017
+- [ ] 2017 q1
+- [x] 2017 q2
 
 2017 needs python 3 to run, everything else runs with python 2.
 
