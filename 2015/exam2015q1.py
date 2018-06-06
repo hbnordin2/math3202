@@ -58,6 +58,6 @@ m.setObjective(costOfDrills + costOfFines, GRB.MINIMIZE)
 
 m.optimize()
 
-for i in WellsDrilled:
-    if WellsDrilled[i].x == 1:
+for i in GroupsDrilledTwice:
+    if GroupsDrilledTwice[i].x == 1:
         print(i)
