@@ -1,9 +1,10 @@
 totalShots = 10
 targetCount = 4
 scores = [6, 4, 10, 7]
-probabilities = [0.8, 0.6, 0.9, 0.5]
+probabilities = [0.2, 0.4, 0.1, 0.5]
 
 memoize = {}
+
 
 def immediateReward(shot, previousThrows, action):
     probabilityOfAllMiss = (1-probabilities[action]) ** previousThrows[action]
@@ -16,6 +17,7 @@ def immediateReward(shot, previousThrows, action):
     return probabilityWeScoreNow * score
 
 def value(shot, previousThrows):
+
     if shot == 10:
         return 0
     
