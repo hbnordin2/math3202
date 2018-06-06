@@ -51,7 +51,7 @@ def val(cardsDrawn, cardsLeft, cardsPlaced):
         # Assume you make the best choice about what to do with the card
         expectedValueForEachAction.append(min(valueOfActions))
 
-    memoize[key] = sum(expectedValueForEachAction)/len(cardsLeft)
+    memoize[key] = sum(expectedValueForEachAction)/len(expectedValueForEachAction)
 
     return sum(expectedValueForEachAction)/len(expectedValueForEachAction)
 
