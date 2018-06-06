@@ -4,7 +4,7 @@ import random
 # Data and ranges
 nHospitalSites = 30
 nSuburbs = 55
-MaxSuburbsPerHospital = 6
+MaxSuburbsPerHospital = 7
 MaxPopulation = 500000
 
 # Hospital names
@@ -28,8 +28,8 @@ m = Model()
 m.setParam('MIPGap', 0)
 
 def yIsOneIffx1StrictlyBiggerThanx2(y, x1, x2, M):
-    m.addConstr(x1 >= x2 + 1 - M*(1-y))
-    m.addConstr(x2 >= x1 + 1 - M*y)
+    m.addConstr(x1 >= x2 - M*(1-y) + 1)
+    m.addConstr(x2 >= x1 - M*y)
 
 def castToBoolean(y, x, U):
     m.addConstr(y <= x)
@@ -53,7 +53,6 @@ for hospitalName in H:
 Constraints
 """
 
-# No hospital can serve more than 7 suburbs or more than 500,000 people
 for h in H:
     totalPopulation = 0
     totalServing = 0
@@ -62,12 +61,15 @@ for h in H:
             totalServing += suburbToHospital[suburbName, hospitalName]
             totalPopulation += suburbToHospital[suburbName, hospitalName] * Population[suburbName]
  
+    # No hospital can serve more than 7 suburbs
     m.addConstr(totalPopulation <= 500000)
+    # No hospital can serve more than 500,000 people
     m.addConstr(totalServing <= 7)
 
-    castToBoolean(hospitals[h], totalServing,1000)
+    # Hospitals is only 1 iff there's a suburb in it
+    yIsOneIffx1StrictlyBiggerThanx2(hospitals[h], totalServing, 0, 1000)
 
-# Allocate each suburb to 1 hospital
+# Make sure a suburb is only allocated to 1 hospital
 for i in S:
     numberOfHospitalSuburbHasBeenAllocatedTo = 0
     for suburbName, hospitalName in suburbToHospital:
@@ -94,4 +96,5 @@ m.setObjective(totalCost, GRB.MINIMIZE)
 m.optimize()
 
 for i in hospitals:
-    print(i, hospitals[i].x)
+    if hospitals[i].x == 1:
+        print(i)
