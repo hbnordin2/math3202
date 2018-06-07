@@ -41,15 +41,18 @@ def main():
 
     # Constraints
     # Ensure if we're assigning a suburb to a hospital, that that hospital is
-    # being built.
+    # being built. Additionally, ensure we aren't exceeding the maximum number
+    # of suburbs per hospital.
     model.addConstrs(gb.quicksum(assigned[h][s] for s in S)
                     <= max_suburbs_per_hospital * will_build[h]
                     for h in H)
+    # # Ensure we aren't exceeding the maximum number of suburbs per hospital
+    # # Note: commented this out as it is implied implicitly in the above
+    # # constraint.
+    # model.addConstrs(gb.quicksum(assigned[h][s] for s in S)
+    #                  <= max_suburbs_per_hospital for h in H)
     # Ensure we are only assigning each suburb to exactly one hospital
     model.addConstrs(gb.quicksum(assigned[h][s] for h in H) == 1 for s in S)
-    # Ensure we aren't exceeding the maximum number of suburbs per hospital
-    model.addConstrs(gb.quicksum(assigned[h][s] for s in S)
-                     <= max_suburbs_per_hospital for h in H)
     # Ensure we aren't exceeding the maximum population per hospital
     model.addConstrs(gb.quicksum(assigned[h][s] * populations[s] for s in S)
                      <= max_population_per_hospital for h in H)
