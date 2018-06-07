@@ -11,8 +11,7 @@ def main():
 
     def get_actions():
         '''
-        Generates and yields every possible action at a state. In this case,
-        this is the number of bottles to order.
+        Generates and yields every possible action at a state.
         '''
         max_fire = max(operators_required) - min(operators_required)
         max_hire = max(operators_required)
