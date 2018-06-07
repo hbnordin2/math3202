@@ -79,7 +79,17 @@ def main():
     # State is the current month and amount of stock on-hand
     state = (0, 0)
     min_cost = V(state)[0]
+
     print(values)
+
+    print('Optimal strategy:')
+    while True:
+        value, action = V(state)
+        print(f'At state {state} order {action} stock to get value {value}')
+        if state[0] == months - 1:
+            break
+        state = T(state, V(state)[1])
+
     print(f'Min cost: {min_cost}')
 
 if __name__ == '__main__':

@@ -50,8 +50,8 @@ def main():
         at the given state.
         '''
         season, _ = state
-        if season == seasons - 1:
-            return C(state, action)
+        if season == seasons:
+            return 0
         return C(state, action) + V(T(state, action))[0]
 
     def V(state):
@@ -67,7 +67,9 @@ def main():
     # State: (season, current number of operators)
     state = (0, 0)
     min_cost = V(state)[0]
+
     print(values)
+
     print('Optimal strategy:')
     while True:
         value, action = V(state)
@@ -75,6 +77,7 @@ def main():
         if state[0] == seasons - 1:
             break
         state = T(state, V(state)[1])
+
     print(f'Min Cost: {min_cost}')
 
 if __name__ == '__main__':

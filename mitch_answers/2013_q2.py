@@ -25,11 +25,11 @@ def main():
         Transition function. Returns the transition state of performing the
         given action at the given state under the given demand.
         '''
-        balls_left, target_shots = state
+        balls_shot, target_shots = state
         target_aimed = action
         updated_shots = list(target_shots)
         updated_shots[target_aimed] += 1
-        return (balls_left - 1, tuple(updated_shots))
+        return (balls_shot + 1, tuple(updated_shots))
 
     def C(state, action):
         '''
@@ -47,8 +47,8 @@ def main():
         Q Function. Returns the expected return from performing the given action
         at the given state.
         '''
-        balls_left, _ = state
-        if balls_left == 0:
+        balls_shot, _ = state
+        if balls_shot == balls:
             return 0
         return C(state, action) + V(T(state, action))[0]
 
@@ -63,9 +63,19 @@ def main():
 
     values = {}
     # State is the number of balls left and the shots we've taken at targets so far
-    state = (balls, tuple([0] * num_targets))
+    state = (0, tuple([0] * num_targets))
     max_points = V(state)[0]
+
     print(values)
+
+    print('Optimal strategy:')
+    while True:
+        value, action = V(state)
+        print(f'At state {state} shoot at target {action} to get value {value}')
+        if state[0] == balls - 1:
+            break
+        state = T(state, V(state)[1])
+
     print(f'Max points: {max_points}')
 
 if __name__ == '__main__':
