@@ -1,6 +1,6 @@
 # math3202
 
-Unverified
+Verified
 
 - [x] 2013 q1
 - [x] 2013 q2
