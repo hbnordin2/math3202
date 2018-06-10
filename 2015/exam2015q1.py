@@ -14,10 +14,6 @@ DrillCost = [random.randint(15000,60000) for s in S]
 Group = [sorted(random.sample(S, random.randint(5,10))) for i in range(30)]
 G = range(len(Group))
 
-def yIsOneIffx1StrictlyBiggerThanx2(y, x1, x2, M):
-    m.addConstr(x1 >= x2 + 1 - M*(1-y))
-    m.addConstr(x2 >= x1 + 1 - M*y)
-
 """
 Variables
 """

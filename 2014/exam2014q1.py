@@ -91,8 +91,8 @@ m.addConstr(blanksUsed <= 50)
 Objective Function
 """
 totalScore = 0
-for i in NumberOfTimesLetterUsed:
-    totalScore += NumberOfTilesNeeded[i] * v[alphabet.index(i)]
+for i in W:
+    totalScore += WordsMade[words[i][0]] * v[i]
 m.setObjective(totalScore, GRB.MAXIMIZE)
 
 m.optimize()
