@@ -14,8 +14,7 @@ def main():
 
     def get_actions():
         '''
-        Generates and yields every possible action at a state. In this case,
-        this is the number of bottles to order.
+        Generates and yields every possible action at a state.
         '''
         for i in range(num_targets):
             yield i
